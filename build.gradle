@@ -1,0 +1,51 @@
+buildscript {
+    ext.kotlin_version = '1.1.2'
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+subprojects {
+    group = 'at.mfellner.combine'
+    version '1.0-SNAPSHOT'
+
+    apply plugin: 'idea'
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+    }
+}
+
+project(':combineLib') {
+    apply plugin: 'kotlin'
+
+    dependencies {
+        compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    }
+}
+
+project(':combineJs') {
+    apply plugin: 'kotlin2js'
+
+    dependencies {
+        compile project(':combineLib')
+        compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    }
+}
+
+project(':combineJvm') {
+    apply plugin: 'kotlin'
+
+    dependencies {
+        compile project(':combineLib')
+        compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    }
+}
